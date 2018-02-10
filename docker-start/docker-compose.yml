@@ -1,0 +1,45 @@
+version: '3'
+services:
+  elasticsearch-master:
+    restart: always
+    image: elasticsearch:latest
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - ./master-config:/usr/share/elasticsearch/config
+    
+
+  elasticsearch-slave1:
+    restart: always
+    image: elasticsearch:latest
+    ports:
+      - "8200:9200"
+      - "8300:9300"
+    depends_on:
+      - elasticsearch-master
+    links:
+      - elasticsearch-master
+    environment:
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - discovery.zen.ping.unicast.hosts=lasticsearch-master
+    volumes:
+      - ./slave1-config:/usr/share/elasticsearch/config
+
+  elasticsearch-head:
+    restart: always
+    image: mobz/elasticsearch-head:5
+    ports:
+      - "9100:9100"
+
+
+  
+
+
+
+
+
+
+
