@@ -1,4 +1,4 @@
-package com.earthchen.elasticsearchspringbootstudy.domain;
+package com.earthchen.elasticsearchspringbootstudy.form;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -6,9 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 @Data
-public class Book {
+public class BookForm {
 
-    private String id;
     private String title;
     private String author;
     private Integer word_count;
