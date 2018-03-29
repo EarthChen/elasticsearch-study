@@ -1,7 +1,6 @@
 version: '3'
 services:
   elasticsearch-master:
-    restart: always
     image: elasticsearch:latest
     ports:
       - "9200:9200"
@@ -10,10 +9,10 @@ services:
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
     volumes:
       - ./master-config:/usr/share/elasticsearch/config
+      - ./ik-analyzer:/usr/share/elasticsearch/plugins/ik-analyzer
     
 
   elasticsearch-slave1:
-    restart: always
     image: elasticsearch:latest
     ports:
       - "8200:9200"
@@ -27,9 +26,9 @@ services:
       - discovery.zen.ping.unicast.hosts=lasticsearch-master
     volumes:
       - ./slave1-config:/usr/share/elasticsearch/config
+      - ./ik-analyzer:/usr/share/elasticsearch/plugins/ik-analyzer
 
   elasticsearch-head:
-    restart: always
     image: mobz/elasticsearch-head:5
     ports:
       - "9100:9100"
